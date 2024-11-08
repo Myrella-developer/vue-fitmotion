@@ -1,5 +1,5 @@
 <script setup>
-  import { ref, defineEmits } from 'vue';   
+ import { ref, defineEmits } from 'vue';   
   const selectedFilter = ref('low');
   const emit = defineEmits(['filter-changed', 'add-exercise']);
 
@@ -14,21 +14,19 @@
 </script>
 <template>
     <div class="filter">
-        <label for="filter">Filtro Intesidad:</label>
+        <label for="filter">Filter Intensity:</label>
         <select v-model="selectedFilter" @change="applyFilter">
-            <option value="low">Baja</option>
-            <option value="medium">Media</option>
-            <option value="High">Alta</option>
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
         </select>
-        <button @click="addExercise">Agregar</button>
+        <button @click="addExercise">New</button>
     </div>
 </template>
 <style scoped>
     .filter {
         display: flex;
         align-items: center;
-        justify-content: center;
         gap: 10px;
-        margin-bottom: 20px;
     }
 </style>
