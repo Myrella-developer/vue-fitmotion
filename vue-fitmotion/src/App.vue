@@ -102,28 +102,80 @@ const filteredExercises = computed(() => {
 });
 </script>
 <template>
-  <Filter @filter-changed="onFilterChange" @add-exercise="openAddModal"/>
-  <div class="exercise-list">
-    <ExerciseCard 
-      v-for="exercise in filteredExercises" 
-      :key="exercise.id" :exercise="exercise" 
-      @edit-exercise="openEditModal" 
-      @delete-exercise="onDeleteExercise" />
+  <div class="app-container">
+    <header class="header">
+      <h1 class="header-title">FitMotion</h1>
+    </header>
+    <main class="main-content">
+      <Filter @filter-changed="onFilterChange" @add-exercise="openAddModal"/>
+      <div class="exercise-list">
+        <ExerciseCard 
+          v-for="exercise in filteredExercises" 
+          :key="exercise.id" :exercise="exercise" 
+          @edit-exercise="openEditModal" 
+          @delete-exercise="onDeleteExercise" />
+      </div>
+      <Modal v-if="showModal" @close="showModal = false">
+        <ExerciseForm 
+          :exercise="selectedExercise" 
+          :isEdit="isEditMode" 
+          @save="saveExercise" 
+          @cancel="showModal = false" 
+        />
+      </Modal>
+  </main>
+  <footer class="footer">
+    <p>&copy; 2024 Myrella's App. All rights reserved.</p>
+  </footer>
   </div>
-  <Modal v-if="showModal" @close="showModal = false">
-    <ExerciseForm 
-      :exercise="selectedExercise" 
-      :isEdit="isEditMode" 
-      @save="saveExercise" 
-      @cancel="showModal = false" 
-    />
-  </Modal>
 </template>
 <style scoped>
+
+  .app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f0f4f8; /* Fondo de la página */
+  color: #333;
+  overflow: hidden;
+}
+
+/* Header */
+.header {
+  background-image: url('/src/assets/header-background.jpg'); /* Ruta de la imagen de fondo */
+  background-size: cover;
+  background-position: center;
+  padding: 50px 0; /* Espaciado alrededor del título */
+  text-align: center;
+  color: white;
+}
+
+.header-title {
+  font-size: 2.5em;
+  font-weight: bold;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* Sombra para mayor legibilidad */
+}
+
+/* Contenido principal */
+.main-content {
+  flex: 1;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  overflow-y: auto;
+}
   .exercise-list {
     display: flex;
     gap: 20px;
     flex-wrap: wrap;
     justify-content: center;
   }
+  /* Footer */
+.footer {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+  font-size: 0.9em;
+}
 </style>
