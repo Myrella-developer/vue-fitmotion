@@ -1,87 +1,96 @@
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted, watch } from 'vue';
 import Filter from './components/Filter.vue';
 import ExerciseCard from './components/ExerciseCard.vue';
+import Modal from './components/Modal.vue';
+import ExerciseForm from './components/ExerciseForm.vue';
 
-const exercises = ref([
-  {
-    id: 1,
-    title: "Push Ups",
-    description: "A classic bodyweight exercise that targets the chest, shoulders, and triceps.",
-    category: "Strength",
-    intensity: "medium",
-    duration: 30,
-    image: "https://example.com/push-ups.jpg"
-  },
-  {
-    id: 2,
-    title: "Squats",
-    description: "A compound exercise that targets the quadriceps, glutes, and hamstrings.",
-    category: "Strength",
-    intensity: "medium",
-    duration: 30,
-    image: "https://example.com/squats.jpg"
-  },
-  {
-    id: 3,
-    title: "Plank",
-    description: "A core-strengthening exercise that targets the abdominal muscles.",
-    category: "Core",
-    intensity: "medium",
-    duration: 30,
-    image: "https://example.com/plank.jpg"
-  },
-  {
-    id: 4,
-    title: "Lunges",
-    description: "A lower body exercise that targets the quadriceps, hamstrings, and glutes.",
-    category: "Strength",
-    intensity: "medium",
-    duration: 30,
-    image: "https://example.com/lunges.jpg"
-  }
-
-])
+const exercises = ref([''])
 const filter = ref('');
+const title = ref('');
+const description = ref('');
+const category = ref('');
+const intensity = ref('');
+const duration = ref(0);
+const image = ref('');
+const showModal = ref(false);
+const selectedExercise = ref(null);
+const isEditMode = ref(false);
+
+function openAddModal() {
+  selectedExercise.value = {
+    title: '',
+    description: '',
+    category: '',
+    intensity: 'medium',
+    duration: 30,
+    image: ''
+  };
+  isEditMode.value = false;
+  showModal.value = true;
+}
+
+function openEditModal(exercise) {
+  selectedExercise.value = { ...exercise };
+  isEditMode.value = true;
+  showModal.value = true;
+}
+
+function saveExercise(exerciseData) {
+  if (isEditMode.value) {
+    onEditExercise(exerciseData);
+  } else {
+    onAddExercise(exerciseData);
+  }
+  showModal.value = false;
+}
+
+onMounted(() => {
+  const storedExercises = localStorage.getItem('exercises');
+  if (storedExercises) {
+    exercises.value = JSON.parse(storedExercises);
+  }else {
+    localStorage.setItem('exercises', JSON.stringify(exercises.value));
+  }
+});
+
+watch(exercises, (newExercises) => {
+  localStorage.setItem('exercises', JSON.stringify(newExercises));
+}, { deep: true });
 
 function onFilterChange(newFilter) {
   filter.value = newFilter;
 }
 
-function onAddExercise() {
+function onAddExercise(exerciseData) {
   console.log('Add exercise');
-  exercises.value.push({
+  const newExercise ={
     id: exercises.value.length + 1,
-    title: title,
-    description: description,
-    category: category,
-    intensity: intensity,
-    duration: duration,
-    image: image
-  });
+    ...exerciseData
+  };
+  exercises.value.push(newExercise);
+
+  title.value = '';
+  description.value = '';
+  category.value = '';
+  intensity.value = '';
+  duration.value = 0;
+  image.value = '';
 }
 
-function onEditExercise() {
+function onEditExercise(updateExercise) {
   console.log('Edit exercise');
   exercises.value = exercises.value.map(exercise => {
-    if (exercise.id === id) {
-      return {
-        ...exercise,
-        title: title,
-        description: description,
-        category: category,
-        intensity: intensity,
-        duration: duration,
-        image: image
-      }
+    if (exercise.id === updateExercise.id) {
+      return {...exercise, ...updateExercise};
     }
     return exercise;
   });
 }
 
-function onDeleteExercise() {
-  console.log('Delete exercise', id);
-  exercises.value = exercises.value.filter(exercise => exercise.id !== id); 
+function onDeleteExercise(exerciseId) {
+  console.log('Delete exercise', exerciseId);
+  exercises.value = exercises.value.filter(exercise => exercise.id !== exerciseId); 
   
 }
 
@@ -93,14 +102,22 @@ const filteredExercises = computed(() => {
 });
 </script>
 <template>
-  <Filter @filter-changed="onFilterChange" @add-exercise="onAddExercise"/>
+  <Filter @filter-changed="onFilterChange" @add-exercise="openAddModal"/>
   <div class="exercise-list">
     <ExerciseCard 
       v-for="exercise in filteredExercises" 
       :key="exercise.id" :exercise="exercise" 
-      @edit-exercise="onEditExercise" 
+      @edit-exercise="openEditModal" 
       @delete-exercise="onDeleteExercise" />
   </div>
+  <Modal v-if="showModal" @close="showModal = false">
+    <ExerciseForm 
+      :exercise="selectedExercise" 
+      :isEdit="isEditMode" 
+      @save="saveExercise" 
+      @cancel="showModal = false" 
+    />
+  </Modal>
 </template>
 <style scoped>
   .exercise-list {

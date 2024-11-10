@@ -17,8 +17,11 @@ function deleteExercise() {
     <div class="exercise-card">
         <img :src="exercise.image" alt="Exercise image">
         <p>{{ exercise.title }}</p>
+        <p>{{ exercise.description }}</p>
+        <p>{{ exercise.duration }} minutes</p>
+        <p>{{ exercise.category }}</p>
         <button @click="editExercise">Edit</button>
-        <button @click="deleteExercise">Eliminar</button>
+        <button @click="deleteExercise">Delete</button>
     </div>
 </template>
 <style>
@@ -29,4 +32,10 @@ function deleteExercise() {
         text-align: center;
         max-width: 200px;
     }
+    .exercise-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  
 </style>

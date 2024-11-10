@@ -1,6 +1,6 @@
 <script setup>
  import { ref, defineEmits } from 'vue';   
-  const selectedFilter = ref('low');
+  const selectedFilter = ref('');
   const emit = defineEmits(['filter-changed', 'add-exercise']);
 
   function applyFilter () {
