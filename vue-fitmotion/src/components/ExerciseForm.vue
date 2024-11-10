@@ -11,10 +11,10 @@
   const exerciseData = ref({ ...props.exercise });
   
   const categoryImagens = {
-    cardio: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-    strength: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-    flexibility: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-    core: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+    cardio: '/src/assets/cardio.jpg',
+    strength: '/src/assets/strength.jpg',
+    flexibility:'/src/assets/flexibility.jpg',
+    core: '/src/assets/core.jpg'
   }
 
   function updateImageForCategory() {
