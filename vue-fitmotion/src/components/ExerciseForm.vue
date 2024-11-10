@@ -55,7 +55,7 @@
         </select>
         
         <div v-if="exerciseData.image">
-          <img :src="exerciseData.image" alt="Category Image">
+          <img :src="exerciseData.image" alt="Category Image" class="category-image">
         </div>
 
         <label>Intensity:</label>
@@ -73,3 +73,13 @@
       </form>
     </div>
   </template> 
+<style scoped>
+.category-image {
+  max-width: 100%;
+  max-height: 200px; /* Adjust as needed */
+  width: auto;
+  height: auto;
+  display: block;
+  margin: 10px auto; /* Center the image */
+}
+</style>
