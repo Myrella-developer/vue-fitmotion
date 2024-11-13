@@ -16,6 +16,10 @@ const image = ref('');
 const showModal = ref(false);
 const selectedExercise = ref(null);
 const isEditMode = ref(false);
+const apiUrl = 'https://json-app-1d643-default-rtdb.europe-west1.firebasedatabase.app/gym-app'
+//jsonId relacion de IDs de app con IDs de firebase
+const jsonId = {}
+//Se obtiene actividades desde FireBase y se inicia jsonId
 
 function openAddModal() {
   selectedExercise.value = {
@@ -36,9 +40,61 @@ function openEditModal(exercise) {
   showModal.value = true;
 }
 
+function apiGet() {
+      try {
+        fetch(apiUrl+'.json')
+          .then((response) => response.json())
+          .then((data) => {
+            for(let obj in data) {
+              //Inicializar jsonId
+              jsonId[data[obj].id]=obj
+            }
+            console.log(jsonId);            
+          });
+      } catch (error) {
+        console.log(error);
+      }      
+}
+
+apiGet()
+
+function apiPost(newCard) {
+  fetch(apiUrl + '.json', {
+    method: 'POST',
+    body: JSON.stringify(newCard)
+  })
+  .then((response) => response.json())
+          .then((data) => {
+          jsonId[newCard.id] = data.name
+  });
+}
+
+function apiEdit(card) {  
+  fetch(apiUrl + `/${jsonId[card.id]}.json`,
+        {
+            method: 'PATCH',
+            body: JSON.stringify(card)
+        }
+    )
+    .then(res => res.json())
+    .then(res => console.log(res))    
+}
+
+function apiDelete(cardId) {
+  fetch(apiUrl + `/${jsonId[cardId]}.json`,
+        {
+            method: 'DELETE'
+        }
+    )
+    .then(res => res.json())
+    .then(res => console.log(res))  
+}
+
+
 function saveExercise(exerciseData) {
   if (isEditMode.value) {
     onEditExercise(exerciseData);
+    
   } else {
     onAddExercise(exerciseData);
   }
@@ -68,7 +124,10 @@ function onAddExercise(exerciseData) {
     id: exercises.value.length + 1,
     ...exerciseData
   };
-  exercises.value.push(newExercise);
+  //Guarda en LocalStorage
+  exercises.value.push(newExercise);  
+  //Guarda en FireBase
+  apiPost(newExercise)
 
   title.value = '';
   description.value = '';
@@ -80,6 +139,7 @@ function onAddExercise(exerciseData) {
 
 function onEditExercise(updateExercise) {
   console.log('Edit exercise');
+  apiEdit(updateExercise)
   exercises.value = exercises.value.map(exercise => {
     if (exercise.id === updateExercise.id) {
       return {...exercise, ...updateExercise};
@@ -91,7 +151,7 @@ function onEditExercise(updateExercise) {
 function onDeleteExercise(exerciseId) {
   console.log('Delete exercise', exerciseId);
   exercises.value = exercises.value.filter(exercise => exercise.id !== exerciseId); 
-  
+  apiDelete(exerciseId)
 }
 
 const filteredExercises = computed(() => {
