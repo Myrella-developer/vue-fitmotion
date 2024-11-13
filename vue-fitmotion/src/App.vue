@@ -95,9 +95,9 @@ function onDeleteExercise(exerciseId) {
 }
 
 const filteredExercises = computed(() => {
-  if (!filter.value) {
+  if(filter.value === 'all') {
     return exercises.value;
-  }
+  } 
   return exercises.value.filter(exercise => exercise.intensity === filter.value);
 });
 </script>
