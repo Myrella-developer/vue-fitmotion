@@ -1,8 +1,11 @@
 <script setup>
 import { defineProps, defineEmits } from 'vue';
 
-const props = defineProps(['exercise']);
-const emit = defineEmits(['edit-exercise', 'delete-exercise']);
+
+const props = defineProps({
+    exercise: Object,
+});
+const emit = defineEmits(['edit-exercise', 'delete-exercise', 'toggle-status']);
 
 function editExercise() {
     emit('edit-exercise', props.exercise);
@@ -12,9 +15,13 @@ function deleteExercise() {
     emit('delete-exercise', props.exercise.id);
 }
 
+function toggleStatus() {
+  emit('toggle-status', props.exercise); 
+}
+
 </script>           
 <template>
-    <div class="exercise-card">
+    <div class="exercise-card" :class="{ 'completed-exercise': props.exercise.completed }" @click="toggleStatus">
         <img :src="exercise.image" alt="Exercise image">
         <p>{{ exercise.title }}</p>
         <p>{{ exercise.description }}</p>
@@ -37,5 +44,8 @@ function deleteExercise() {
     height: auto;
     border-radius: 8px;
   }
+  .completed-exercise {
+  background-color: lightgreen;
+}
   
 </style>
