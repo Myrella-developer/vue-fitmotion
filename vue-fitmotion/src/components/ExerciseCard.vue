@@ -15,7 +15,8 @@ function deleteExercise() {
     emit('delete-exercise', props.exercise.id);
 }
 
-function toggleStatus() {
+function toggleStatus(e) {
+    e.stopPropagation()
   emit('toggle-status', props.exercise); 
 }
 
@@ -27,11 +28,33 @@ function toggleStatus() {
         <p>{{ exercise.description }}</p>
         <p>{{ exercise.duration }} minutes</p>
         <p>{{ exercise.category }}</p>
-        <button @click="editExercise">Edit</button>
-        <button @click="deleteExercise">Delete</button>
+        <button @click.stop="editExercise" class="button-edit">Edit</button>
+        <button @click.stop="deleteExercise" class="button-delete">Delete</button>
     </div>
 </template>
 <style>
+
+    .button-edit {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    }
+
+    .button-delete {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    }
+
     .exercise-card {
         border: 1px solid #ccc;
         padding: 10px;
