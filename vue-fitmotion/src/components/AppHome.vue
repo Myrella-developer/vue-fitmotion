@@ -207,7 +207,7 @@ const filteredExercises = computed(() => {
 
 <style scoped>
 
-  .app-container {
+.app-container {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -215,8 +215,6 @@ const filteredExercises = computed(() => {
   color: #333;
   overflow: hidden;
 }
-
-
 
 /* Contenido principal */
 .main-content {
@@ -226,7 +224,7 @@ const filteredExercises = computed(() => {
   margin: 0 auto;
   overflow-y: auto;
 }
-  .exercise-list {
+.exercise-list {
     margin: 20px;
     border: 1px solid #838181;
     border-radius: 8px;
@@ -235,7 +233,7 @@ const filteredExercises = computed(() => {
     gap: 20px;
     flex-wrap: wrap;
     justify-content: center;
-  }
+}
   /* Footer */
 .footer {
   background-color: #333;
