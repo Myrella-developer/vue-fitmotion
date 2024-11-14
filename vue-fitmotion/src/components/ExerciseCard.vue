@@ -24,51 +24,71 @@ function toggleStatus(e) {
 <template>
     <div class="exercise-card" :class="{ 'completed-exercise': props.exercise.completed }" @click="toggleStatus">
         <img :src="exercise.image" alt="Exercise image">
-        <p>{{ exercise.title }}</p>
-        <p>{{ exercise.description }}</p>
-        <p>{{ exercise.duration }} minutes</p>
-        <p>{{ exercise.category }}</p>
+        <p class="exercise-title">{{ exercise.title }}</p>
+        <p class="exercise-description">{{ exercise.description }}</p>
+        <p class="exercise-duration">{{ exercise.duration }} minutes</p>
+        <p class="exercise-category">{{ exercise.category }}</p>
         <button @click.stop="editExercise" class="button-edit">Edit</button>
         <button @click.stop="deleteExercise" class="button-delete">Delete</button>
     </div>
 </template>
 <style>
 
-    .button-edit {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    margin: 5px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 14px;
-    }
+.exercise-card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  max-width: 200px;
+  text-align: center;
+}
 
-    .button-delete {
-    background-color: #dc3545;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 14px;
-    }
+.exercise-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
 
-    .exercise-card {
-        border: 1px solid #ccc;
-        padding: 10px;
-        border-radius: 8px;
-        text-align: center;
-        max-width: 200px;
-    }
-    .exercise-card img {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-  }
-  .completed-exercise {
+.exercise-info {
+  text-align: left;
+  padding: 10px;
+}
+
+.exercise-title {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.exercise-description,
+.exercise-duration,
+.exercise-category {
+  margin-bottom: 5px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+}
+
+.button-edit,
+.button-delete {
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.button-edit {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.button-delete {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.completed-exercise {
   background-color: lightgreen;
 }
-  
 </style>
