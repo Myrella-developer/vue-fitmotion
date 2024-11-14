@@ -45,7 +45,7 @@ function toggleStatus(e) {
 
 .exercise-card img {
   width: 100%;
-  height: auto;
+  height: 120px;
   border-radius: 8px;
 }
 
