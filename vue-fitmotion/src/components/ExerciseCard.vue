@@ -26,8 +26,9 @@ function toggleStatus(e) {
         <img :src="exercise.image" alt="Exercise image">
         <p class="exercise-title">{{ exercise.title }}</p>
         <p class="exercise-description">{{ exercise.description }}</p>
-        <p class="exercise-duration">{{ exercise.duration }} minutes</p>
-        <p class="exercise-category">{{ exercise.category }}</p>
+        <p class="exercise-duration">Tiem: {{ exercise.duration }} minutes</p>
+        <p class="exercise-duration">Intensity: {{ exercise.intensity }}</p>
+        <p class="exercise-category">Category: {{ exercise.category }}</p>
         <button @click.stop="editExercise" class="button-edit">Edit</button>
         <button @click.stop="deleteExercise" class="button-delete">Delete</button>
     </div>
@@ -79,13 +80,15 @@ function toggleStatus(e) {
 }
 
 .button-edit {
-  background-color: #007bff;
-  color: #fff;
+    margin: 5px;
+    background-color: #007bff;
+    color: #fff;
 }
 
 .button-delete {
-  background-color: #dc3545;
-  color: #fff;
+    margin: 5px;
+    background-color: #dc3545;
+    color: #fff;
 }
 
 .completed-exercise {

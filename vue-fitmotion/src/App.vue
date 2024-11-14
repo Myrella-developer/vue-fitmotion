@@ -245,6 +245,10 @@ const filteredExercises = computed(() => {
   overflow-y: auto;
 }
   .exercise-list {
+    margin: 20px;
+    border: 1px solid #838181;
+    border-radius: 8px;
+    padding: 10px;
     display: flex;
     gap: 20px;
     flex-wrap: wrap;
