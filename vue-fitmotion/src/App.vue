@@ -130,9 +130,7 @@ function onAddExercise(exerciseData) {
   //Guarda en LocalStorage
   exercises.value.push(newExercise);  
   //Guarda en FireBase
-  apiPost(newExercise)
-  console.log(newExercise);
-  
+  apiPost(newExercise)  
 
   title.value = '';
   description.value = '';
@@ -145,7 +143,6 @@ function onAddExercise(exerciseData) {
 function onEditExercise(updateExercise) {
   
   console.log('Edit exercise');
-  console.log(updateExercise);
   apiEdit(updateExercise)
   exercises.value = exercises.value.map(exercise => {
     if (exercise.id === updateExercise.id) {
@@ -162,7 +159,6 @@ function onDeleteExercise(exerciseId) {
 }
 
 function onToggleStatus(exercise) {
-  // console.log(exercise);
   onEditExercise({...exercise, completed: !exercise.completed})
 }
 
