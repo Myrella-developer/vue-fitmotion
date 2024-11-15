@@ -14,8 +14,9 @@ function closeModal() {
         <button @click="closeModal" class="close-button">Close</button>
       </div>
     </div>
-  </template>
-  <style scoped>
+</template>
+
+<style scoped>
   .modal-backdrop {
     position: fixed;
     top: 0;

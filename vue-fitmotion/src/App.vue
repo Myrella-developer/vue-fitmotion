@@ -13,13 +13,13 @@ const category = ref('');
 const intensity = ref('');
 const duration = ref(0);
 const image = ref('');
+const completed = ref(false)
 const showModal = ref(false);
 const selectedExercise = ref(null);
 const isEditMode = ref(false);
 const apiUrl = 'https://json-app-1d643-default-rtdb.europe-west1.firebasedatabase.app/gym-app'
 //jsonId relacion de IDs de app con IDs de firebase
 const jsonId = {}
-//Se obtiene actividades desde FireBase y se inicia jsonId
 
 function openAddModal() {
   selectedExercise.value = {
@@ -34,12 +34,13 @@ function openAddModal() {
   showModal.value = true;
 }
 
-function openEditModal(exercise) {
+function openEditModal(exercise) {  
   selectedExercise.value = { ...exercise };
   isEditMode.value = true;
   showModal.value = true;
 }
-
+// ******* Funciones API: Inicio *******
+//Se obtiene actividades desde FireBase y se inicia jsonId
 function apiGet() {
       try {
         fetch(apiUrl+'.json')
@@ -77,7 +78,7 @@ function apiEdit(card) {
         }
     )
     .then(res => res.json())
-    .then(res => console.log(res))    
+    .then(res => console.log('Respuesta API',res))    
 }
 
 function apiDelete(cardId) {
@@ -89,6 +90,7 @@ function apiDelete(cardId) {
     .then(res => res.json())
     .then(res => console.log(res))  
 }
+// ******* Funciones API: Fin *******
 
 
 function saveExercise(exerciseData) {
@@ -122,12 +124,13 @@ function onAddExercise(exerciseData) {
   console.log('Add exercise');
   const newExercise ={
     id: exercises.value.length + 1,
+    completed: false,
     ...exerciseData
   };
   //Guarda en LocalStorage
   exercises.value.push(newExercise);  
   //Guarda en FireBase
-  apiPost(newExercise)
+  apiPost(newExercise)  
 
   title.value = '';
   description.value = '';
@@ -138,6 +141,7 @@ function onAddExercise(exerciseData) {
 }
 
 function onEditExercise(updateExercise) {
+  
   console.log('Edit exercise');
   apiEdit(updateExercise)
   exercises.value = exercises.value.map(exercise => {
@@ -154,6 +158,10 @@ function onDeleteExercise(exerciseId) {
   apiDelete(exerciseId)
 }
 
+function onToggleStatus(exercise) {
+  onEditExercise({...exercise, completed: !exercise.completed})
+}
+
 const filteredExercises = computed(() => {
   if(filter.value === 'all') {
     return exercises.value;
@@ -167,14 +175,19 @@ const filteredExercises = computed(() => {
       <h1 class="header-title">FitMotion</h1>
     </header>
     <main class="main-content">
+      
       <Filter @filter-changed="onFilterChange" @add-exercise="openAddModal"/>
+
       <div class="exercise-list">
         <ExerciseCard 
           v-for="exercise in filteredExercises" 
           :key="exercise.id" :exercise="exercise" 
           @edit-exercise="openEditModal" 
-          @delete-exercise="onDeleteExercise" />
+          @delete-exercise="onDeleteExercise"
+          @toggle-status="onToggleStatus"
+          />
       </div>
+
       <Modal v-if="showModal" @close="showModal = false">
         <ExerciseForm 
           :exercise="selectedExercise" 
@@ -183,12 +196,15 @@ const filteredExercises = computed(() => {
           @cancel="showModal = false" 
         />
       </Modal>
+
   </main>
   <footer class="footer">
     <p>&copy; 2024 Myrella's App. All rights reserved.</p>
   </footer>
   </div>
 </template>
+
+
 <style scoped>
 
   .app-container {
@@ -225,6 +241,10 @@ const filteredExercises = computed(() => {
   overflow-y: auto;
 }
   .exercise-list {
+    margin: 20px;
+    border: 1px solid #838181;
+    border-radius: 8px;
+    padding: 10px;
     display: flex;
     gap: 20px;
     flex-wrap: wrap;
