@@ -21,7 +21,7 @@ const usr = 'juan';
 const apiUrl = 'https://json-app-1d643-default-rtdb.europe-west1.firebasedatabase.app/gym-app/' + usr;
 //jsonId relacion de IDs de app con IDs de firebase
 const jsonId = {};
-let isLoading = false;
+let isLoading = ref(false);
 
 
 function openAddModal() {
@@ -45,7 +45,7 @@ function openEditModal(exercise) {
 // ******* Funciones API: Inicio *******
 //Se obtiene actividades desde FireBase y se inicia jsonId
 function apiGet() {
-      isLoading = true
+      isLoading.value = true
       try {
         fetch(apiUrl+'.json')
           .then((response) => response.json())
@@ -55,7 +55,7 @@ function apiGet() {
               jsonId[data[obj].id] = obj
               exercises.value.push(data[obj])
               }
-            isLoading = false;              
+            isLoading.value = false;                          
             console.log('Ejs del API: ', exercises.value);            
             console.log('IdAPI-IdLocal', jsonId);            
           });
@@ -192,7 +192,9 @@ const filteredExercises = computed(() => {
       <Filter @filter-changed="onFilterChange" @add-exercise="openAddModal"/>
 
       <div class="exercise-list">
+        <p v-if="isLoading">Cargando contactos</p>
         <ExerciseCard 
+        v-else
         v-for="exercise in filteredExercises" 
         :key="exercise.id" :exercise="exercise" 
         @edit-exercise="openEditModal" 
