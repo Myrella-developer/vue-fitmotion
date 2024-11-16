@@ -192,7 +192,7 @@ const filteredExercises = computed(() => {
       <Filter @filter-changed="onFilterChange" @add-exercise="openAddModal"/>
 
       <div class="exercise-list">
-        <p v-if="isLoading">Cargando contactos</p>
+        <p v-if="isLoading">Cargando contactos...</p>
         <ExerciseCard 
         v-else
         v-for="exercise in filteredExercises" 
