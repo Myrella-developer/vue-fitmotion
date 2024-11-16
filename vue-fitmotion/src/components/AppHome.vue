@@ -17,10 +17,11 @@ const completed = ref(false)
 const showModal = ref(false);
 const selectedExercise = ref(null);
 const isEditMode = ref(false);
-const usr = 'juan'
-const apiUrl = 'https://json-app-1d643-default-rtdb.europe-west1.firebasedatabase.app/gym-app/' + usr
+const usr = 'juan';
+const apiUrl = 'https://json-app-1d643-default-rtdb.europe-west1.firebasedatabase.app/gym-app/' + usr;
 //jsonId relacion de IDs de app con IDs de firebase
-const jsonId = {}
+const jsonId = {};
+let isLoading = false;
 
 
 function openAddModal() {
@@ -44,6 +45,7 @@ function openEditModal(exercise) {
 // ******* Funciones API: Inicio *******
 //Se obtiene actividades desde FireBase y se inicia jsonId
 function apiGet() {
+      isLoading = true
       try {
         fetch(apiUrl+'.json')
           .then((response) => response.json())
@@ -53,6 +55,7 @@ function apiGet() {
               jsonId[data[obj].id] = obj
               exercises.value.push(data[obj])
               }
+            isLoading = false;              
             console.log('Ejs del API: ', exercises.value);            
             console.log('IdAPI-IdLocal', jsonId);            
           });
@@ -190,11 +193,11 @@ const filteredExercises = computed(() => {
 
       <div class="exercise-list">
         <ExerciseCard 
-          v-for="exercise in filteredExercises" 
-          :key="exercise.id" :exercise="exercise" 
-          @edit-exercise="openEditModal" 
-          @delete-exercise="onDeleteExercise"
-          @toggle-status="onToggleStatus"
+        v-for="exercise in filteredExercises" 
+        :key="exercise.id" :exercise="exercise" 
+        @edit-exercise="openEditModal" 
+        @delete-exercise="onDeleteExercise"
+        @toggle-status="onToggleStatus"
           />
       </div>
 
@@ -211,7 +214,7 @@ const filteredExercises = computed(() => {
 
   </main>
   <footer class="footer">
-    <p>&copy; 2024 Myrella's App. All rights reserved.</p>
+    <p>&copy; 2024. All rights reserved.</p>
   </footer>
   </div>
 </template>
