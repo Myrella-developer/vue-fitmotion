@@ -5,7 +5,7 @@ import ExerciseCard from './ExerciseCard.vue';
 import Modal from './Modal.vue';
 import ExerciseForm from './ExerciseForm.vue';
 
-const exercises = ref([''])
+const exercises = ref([])
 const filter = ref('');
 const title = ref('');
 const description = ref('');
@@ -48,16 +48,18 @@ function apiGet() {
           .then((data) => {
             for(let obj in data) {
               //Inicializar jsonId
-              jsonId[data[obj].id]=obj
-            }
-            console.log(jsonId);            
+              jsonId[data[obj].id] = obj
+              exercises.value.push(data[obj])
+              }
+            console.log('Ejs del API: ', exercises.value);            
+            console.log('IdAPI-IdLocal', jsonId);            
           });
       } catch (error) {
         console.log(error);
       }      
 }
 
-apiGet()
+
 
 function apiPost(newCard) {
   fetch(apiUrl + '.json', {
@@ -104,17 +106,24 @@ function saveExercise(exerciseData) {
 }
 
 onMounted(() => {
-  const storedExercises = localStorage.getItem('exercises');
-  if (storedExercises) {
-    exercises.value = JSON.parse(storedExercises);
-  }else {
-    localStorage.setItem('exercises', JSON.stringify(exercises.value));
-  }
+  apiGet()
+  // const storedExercises = localStorage.getItem('exercises');
+  // console.log(storedExercises);
+  
+  // if (storedExercises) {
+  //   exercises.value = JSON.parse(storedExercises);
+  //   console.log(exercises.value[0]);
+    
+  // }else {
+  //   localStorage.setItem('exercises', JSON.stringify(exercises.value));
+  // }
 });
 
-watch(exercises, (newExercises) => {
-  localStorage.setItem('exercises', JSON.stringify(newExercises));
-}, { deep: true });
+// watch(exercises, (newExercise) => {
+//   // localStorage.setItem('exercises', JSON.stringify(newExercises));
+//   console.log('Nuevo ejercicio', newExercise);
+  
+// }, { deep: true });
 
 function onFilterChange(newFilter) {
   filter.value = newFilter;
@@ -127,7 +136,7 @@ function onAddExercise(exerciseData) {
     completed: false,
     ...exerciseData
   };
-  //Guarda en LocalStorage
+  //Guarda en Variable local
   exercises.value.push(newExercise);  
   //Guarda en FireBase
   apiPost(newExercise)  
