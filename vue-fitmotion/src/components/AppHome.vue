@@ -4,8 +4,13 @@ import Filter from './Filter.vue';
 import ExerciseCard from './ExerciseCard.vue';
 import Modal from './Modal.vue';
 import ExerciseForm from './ExerciseForm.vue';
+import { useExercisesStore } from '../stores/exercises'
+
+
+const exercisesStore = useExercisesStore()   
 
 const exercises = ref([])
+
 const filter = ref('');
 const title = ref('');
 const description = ref('');
@@ -112,6 +117,9 @@ function saveExercise(exerciseData) {
 
 onMounted(() => {
   apiGet()
+  exercisesStore.fetchExercises()
+  console.log('Luego de onMount: ', exercisesStore.exercises);
+  
   // const storedExercises = localStorage.getItem('exercises');
   // console.log(storedExercises);
   
@@ -192,7 +200,7 @@ const filteredExercises = computed(() => {
       <Filter @filter-changed="onFilterChange" @add-exercise="openAddModal"/>
 
       <div class="exercise-list">
-        <p v-if="isLoading">Cargando contactos...</p>
+        <p v-if="isLoading">Cargando Ejercicios...</p>
         <ExerciseCard 
         v-else
         v-for="exercise in filteredExercises" 
