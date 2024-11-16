@@ -17,9 +17,11 @@ const completed = ref(false)
 const showModal = ref(false);
 const selectedExercise = ref(null);
 const isEditMode = ref(false);
-const apiUrl = 'https://json-app-1d643-default-rtdb.europe-west1.firebasedatabase.app/gym-app'
+const usr = 'juan'
+const apiUrl = 'https://json-app-1d643-default-rtdb.europe-west1.firebasedatabase.app/gym-app/' + usr
 //jsonId relacion de IDs de app con IDs de firebase
 const jsonId = {}
+
 
 function openAddModal() {
   selectedExercise.value = {
@@ -178,6 +180,7 @@ const filteredExercises = computed(() => {
   return exercises.value.filter(exercise => exercise.intensity === filter.value);
 });
 </script>
+
 <template>
   <div class="app-container">
     
