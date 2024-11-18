@@ -10,8 +10,6 @@ import { v4 as uuidv4 } from 'uuid';
 
 const exercisesStore = useExercisesStore()   
 
-// const exercises = ref([])
-
 const filter = ref('');
 const title = ref('');
 const description = ref('');
@@ -19,15 +17,10 @@ const category = ref('');
 const intensity = ref('');
 const duration = ref(0);
 const image = ref('');
-// const completed = ref(false)
 const showModal = ref(false);
 const selectedExercise = ref(null);
 const isEditMode = ref(false);
-const usr = 'juan';
-// const apiUrl = 'https://json-app-1d643-default-rtdb.europe-west1.firebasedatabase.app/gym-app/' + usr;
-//jsonId relacion de IDs de app con IDs de firebase
-// const jsonId = {};
-// let isLoading = ref(false);
+
 
 
 function openAddModal() {
@@ -48,63 +41,6 @@ function openEditModal(exercise) {
   isEditMode.value = true;
   showModal.value = true;
 }
-// ******* Funciones API: Inicio *******
-//Se obtiene actividades desde FireBase y se inicia jsonId
-// function apiGet() {
-//       isLoading.value = true
-//       try {
-//         fetch(apiUrl+'.json')
-//           .then((response) => response.json())
-//           .then((data) => {
-//             for(let obj in data) {
-//               //Inicializar jsonId
-//               jsonId[data[obj].id] = obj
-//               exercises.value.push(data[obj])
-//               }
-//             isLoading.value = false;                          
-//             console.log('Ejs del API: ', exercises.value);            
-//             console.log('IdAPI-IdLocal', jsonId);            
-//           });
-//       } catch (error) {
-//         console.log(error);
-//       }      
-// }
-
-
-
-// function apiPost(newCard) {
-//   fetch(apiUrl + '.json', {
-//     method: 'POST',
-//     body: JSON.stringify(newCard)
-//   })
-//   .then((response) => response.json())
-//           .then((data) => {
-//           jsonId[newCard.id] = data.name
-//   });
-// }
-
-// function apiEdit(card) {  
-//   fetch(apiUrl + `/${jsonId[card.id]}.json`,
-//         {
-//             method: 'PATCH',
-//             body: JSON.stringify(card)
-//         }
-//     )
-//     .then(res => res.json())
-//     .then(res => console.log('Respuesta API',res))    
-// }
-
-// function apiDelete(cardId) {
-//   fetch(apiUrl + `/${jsonId[cardId]}.json`,
-//         {
-//             method: 'DELETE'
-//         }
-//     )
-//     .then(res => res.json())
-//     .then(res => console.log(res))  
-// }
-// ******* Funciones API: Fin *******
-
 
 function saveExercise(exerciseData) {
   if (isEditMode.value) {
@@ -117,23 +53,16 @@ function saveExercise(exerciseData) {
 
 onMounted(() => {
   exercisesStore.fetchExercises()
-  console.log('Luego de onMount: ', exercisesStore.exercises);
-  
+  console.log('Luego de onMount: ', exercisesStore.exercises);  
 });
 
-// watch(exercises, (newExercise) => {
-//   // localStorage.setItem('exercises', JSON.stringify(newExercises));
-//   console.log('Nuevo ejercicio', newExercise);
-  
-// }, { deep: true });
 
 function onFilterChange(newFilter) {
   filter.value = newFilter;
 }
 
 function onAddExercise(exerciseData) {
-  console.log('Add exercise');
-  
+ 
   const newExercise = {
     id: uuidv4(),
     completed: false,
@@ -152,10 +81,7 @@ function onAddExercise(exerciseData) {
 }
 
 function onEditExercise(updateExercise) {
-  
-  console.log('Edit exercise');
-  exercisesStore.editExercise(updateExercise)
-
+    exercisesStore.editExercise(updateExercise)
 }
 
 function onDeleteExercise(exerciseId) {
@@ -179,12 +105,13 @@ const filteredExercises = computed(() => {
   <div class="app-container">
     
     <main class="main-content">
-      
+
       <Filter @filter-changed="onFilterChange" @add-exercise="openAddModal"/>
 
       <div class="exercise-list">
         <p v-if="exercisesStore.loading">Cargando Ejercicios...</p>
-        <p v-else-if="exercisesStore.exercises.length === 0">No hay Ejercicios</p>
+        <p v-else-if="exercisesStore.exercises.length === 0">No hay Ejercicios en BBDD</p>
+        <p v-else-if="filteredExercises.length === 0">No hay ejercicios con este filtro</p>
         <ExerciseCard 
         v-else
         v-for="exercise in filteredExercises" 
@@ -194,8 +121,6 @@ const filteredExercises = computed(() => {
         @toggle-status="onToggleStatus"
           />
       </div>
-
-      
 
       <Modal v-if="showModal" @close="showModal = false">
         <ExerciseForm 
@@ -233,6 +158,7 @@ const filteredExercises = computed(() => {
   margin: 0 auto;
   overflow-y: auto;
 }
+
 .exercise-list {
     margin: 20px;
     border: 1px solid #838181;

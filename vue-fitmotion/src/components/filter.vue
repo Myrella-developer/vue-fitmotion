@@ -32,7 +32,7 @@
 <style scoped>
     .filter {
         display: flex;
-        align-items: center;
+        justify-content: center;
         gap: 10px;
     }
 </style>

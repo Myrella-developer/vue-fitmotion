@@ -26,7 +26,7 @@ function toggleStatus(e) {
         <img :src="exercise.image" alt="Exercise image">
         <p class="exercise-title">{{ exercise.title }}</p>
         <p class="exercise-description">{{ exercise.description }}</p>
-        <p class="exercise-duration">Tiem: {{ exercise.duration }} minutes</p>
+        <p class="exercise-duration">Time: {{ exercise.duration }} minutes</p>
         <p class="exercise-duration">Intensity: {{ exercise.intensity }}</p>
         <p class="exercise-category">Category: {{ exercise.category }}</p>
         <button @click.stop="editExercise" class="button-edit">Edit</button>
