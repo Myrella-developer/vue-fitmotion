@@ -26,7 +26,7 @@ function toggleStatus(e) {
         <img :src="exercise.image" alt="Exercise image">
         <p class="exercise-title">{{ exercise.title }}</p>
         <p class="exercise-description">{{ exercise.description }}</p>
-        <p class="exercise-duration">Tiem: {{ exercise.duration }} minutes</p>
+        <p class="exercise-duration">Time: {{ exercise.duration }} minutes</p>
         <p class="exercise-duration">Intensity: {{ exercise.intensity }}</p>
         <p class="exercise-category">Category: {{ exercise.category }}</p>
         <button @click.stop="editExercise" class="button-edit">Edit</button>
@@ -36,11 +36,17 @@ function toggleStatus(e) {
 <style>
 
 .exercise-card {
-  border: 1px solid #ccc;
+  box-sizing: border-box;
   border-radius: 8px;
   padding: 10px;
-  max-width: 200px;
+  width: 200px;
   text-align: center;
+}
+
+.exercise-card:hover {
+  border: 2px solid #ccc;
+  opacity: .9;
+  cursor: pointer;
 }
 
 .exercise-card img {
@@ -63,6 +69,9 @@ function toggleStatus(e) {
 .exercise-duration,
 .exercise-category {
   margin-bottom: 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .button-container {
