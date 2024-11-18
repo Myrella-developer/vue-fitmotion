@@ -10,7 +10,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 const exercisesStore = useExercisesStore()   
 
-const exercises = ref([])
+// const exercises = ref([])
 
 const filter = ref('');
 const title = ref('');
@@ -19,15 +19,15 @@ const category = ref('');
 const intensity = ref('');
 const duration = ref(0);
 const image = ref('');
-const completed = ref(false)
+// const completed = ref(false)
 const showModal = ref(false);
 const selectedExercise = ref(null);
 const isEditMode = ref(false);
 const usr = 'juan';
-const apiUrl = 'https://json-app-1d643-default-rtdb.europe-west1.firebasedatabase.app/gym-app/' + usr;
+// const apiUrl = 'https://json-app-1d643-default-rtdb.europe-west1.firebasedatabase.app/gym-app/' + usr;
 //jsonId relacion de IDs de app con IDs de firebase
-const jsonId = {};
-let isLoading = ref(false);
+// const jsonId = {};
+// let isLoading = ref(false);
 
 
 function openAddModal() {
@@ -116,20 +116,9 @@ function saveExercise(exerciseData) {
 }
 
 onMounted(() => {
-  // apiGet()
   exercisesStore.fetchExercises()
   console.log('Luego de onMount: ', exercisesStore.exercises);
   
-  // const storedExercises = localStorage.getItem('exercises');
-  // console.log(storedExercises);
-  
-  // if (storedExercises) {
-  //   exercises.value = JSON.parse(storedExercises);
-  //   console.log(exercises.value[0]);
-    
-  // }else {
-  //   localStorage.setItem('exercises', JSON.stringify(exercises.value));
-  // }
 });
 
 // watch(exercises, (newExercise) => {
@@ -144,13 +133,13 @@ function onFilterChange(newFilter) {
 
 function onAddExercise(exerciseData) {
   console.log('Add exercise');
+  
   const newExercise = {
     id: uuidv4(),
     completed: false,
     ...exerciseData
   };
-  //Guarda en Variable local
-  exercises.value.push(newExercise);  
+    
   //Guarda en FireBase
   exercisesStore.postExercise(newExercise)  
 
@@ -166,17 +155,11 @@ function onEditExercise(updateExercise) {
   
   console.log('Edit exercise');
   exercisesStore.editExercise(updateExercise)
-  exercises.value = exercises.value.map(exercise => {
-    if (exercise.id === updateExercise.id) {
-      return {...exercise, ...updateExercise};
-    }
-    return exercise;
-  });
+
 }
 
 function onDeleteExercise(exerciseId) {
   console.log('Delete exercise', exerciseId);
-  exercises.value = exercises.value.filter(exercise => exercise.id !== exerciseId); 
   exercisesStore.deleteExercise(exerciseId)
 }
 
@@ -186,9 +169,9 @@ function onToggleStatus(exercise) {
 
 const filteredExercises = computed(() => {
   if(filter.value === 'all') {
-    return exercises.value;
+    return exercisesStore.exercises;
   } 
-  return exercises.value.filter(exercise => exercise.intensity === filter.value);
+  return exercisesStore.exercises.filter(exercise => exercise.intensity === filter.value);
 });
 </script>
 
@@ -204,7 +187,7 @@ const filteredExercises = computed(() => {
         <p v-else-if="exercisesStore.exercises.length === 0">No hay Ejercicios</p>
         <ExerciseCard 
         v-else
-        v-for="exercise in exercisesStore.exercises" 
+        v-for="exercise in filteredExercises" 
         :key="exercise.id" :exercise="exercise" 
         @edit-exercise="openEditModal" 
         @delete-exercise="onDeleteExercise"

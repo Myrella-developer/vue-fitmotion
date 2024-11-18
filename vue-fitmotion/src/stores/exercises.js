@@ -35,39 +35,54 @@ export const useExercisesStore = defineStore('exercises', {
             }
         },
         postExercise(newExercise) {
+            //Guarda en Variable local
+            this.exercises.push(newExercise);
+            
+            //Guarda en Firebase
             fetch(this.url + this.usr + '.json', {
                 method: 'POST',
                 body: JSON.stringify(newExercise)
             })
-            .then((response) => response.json())
-            .then((data) => {
-                this.fetchExercises()
-                // this.firebaseId[newExercise.id] = data.name
-            });
+                .then((response) => response.json())
+                .then((data) => {
+                    // this.fetchExercises()
+                    this.firebaseId[newExercise.id] = data.name
+                });
         },
-        editExercise(editedExercise) {  
+        editExercise(editedExercise) {
+            //Se actualiza storage
+            this.exercises = this.exercises.map(exercise => {
+                if (exercise.id === editedExercise.id) {
+                    return { ...exercise, ...editedExercise };
+                }
+                return exercise;
+            });
+            //Se modifica BBDD
             fetch(this.url + this.usr + `/${this.firebaseId[editedExercise.id]}.json`,
                 {
                     method: 'PATCH',
                     body: JSON.stringify(editedExercise)
                 }
             )
-            .then(res => res.json())
-            .then(res => {
-                this.fetchExercises()
-                console.log('Respuesta API en Edit ', res)})    
+                .then(res => res.json())
+                .then(res => {
+                    // this.fetchExercises()
+                    console.log('Respuesta API en Edit ', res)
+                })
         },
         deleteExercise(exerciseId) {
+            this.exercises = this.exercises.filter(exercise => exercise.id !== exerciseId); 
+
             fetch(this.url + this.usr + `/${this.firebaseId[exerciseId]}.json`,
-                  {
-                      method: 'DELETE'
-                  }
-              )
-              .then(res => res.json())
-              .then(res => {
-                this.fetchExercises()
-                console.log(res)
-            })  
-          }
+                {
+                    method: 'DELETE'
+                }
+            )
+                .then(res => res.json())
+                .then(res => {
+                    // this.fetchExercises()
+                    console.log(res)
+                })
+        }
     }
 })
