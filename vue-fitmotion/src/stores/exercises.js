@@ -2,26 +2,31 @@ import { defineStore } from 'pinia'
 
 export const useExercisesStore = defineStore('exercises', {
     state: () => ({
-        exercises: []
+        exercises: [],
+        loading: false,
+        error: null,
+        url: 'https://json-app-1d643-default-rtdb.europe-west1.firebasedatabase.app/gym-app/',
+        usr: 'juan'
     }),
     actions: {
-        fetchExercises() {
-            let ejs = []
+        async fetchExercises() {
+            this.loading = true
+            this.error = null
             try {
-                fetch('https://json-app-1d643-default-rtdb.europe-west1.firebasedatabase.app/gym-app/juan' + '.json')
-                    .then((response) => response.json())
-                    .then((data) => {
-                        console.log('data: ', data);
-                        for (let obj in data) {
-                            //Inicializar jsonId
-                            ejs.push(data[obj])
-                        }
-                        this.exercises = ejs
-                        
-                        console.log('Ejs en Pinia: ', this.exercises);
-                    });
+                const response = await fetch( this.url + this.usr + '.json')
+                if (!response.ok) {
+                    throw new Error(`Error status: ${response.status}`)
+                }
+                const data = await response.json()
+                console.log('Data pura: ', data);
+                if (data != null) {
+                    this.exercises = Object.values(data)
+                }
+                console.log('Ejercicios fetched: ', this.exercises);
             } catch (error) {
-                console.log(error);
+                console.error(error);
+            } finally {
+                this.loading = false;
             }
         }
     }

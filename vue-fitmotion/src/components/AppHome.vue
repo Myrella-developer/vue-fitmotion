@@ -200,10 +200,11 @@ const filteredExercises = computed(() => {
       <Filter @filter-changed="onFilterChange" @add-exercise="openAddModal"/>
 
       <div class="exercise-list">
-        <p v-if="isLoading">Cargando Ejercicios...</p>
+        <p v-if="exercisesStore.loading">Cargando Ejercicios...</p>
+        <p v-else-if="exercisesStore.exercises.length === 0">No hay Ejercicios</p>
         <ExerciseCard 
         v-else
-        v-for="exercise in filteredExercises" 
+        v-for="exercise in exercisesStore.exercises" 
         :key="exercise.id" :exercise="exercise" 
         @edit-exercise="openEditModal" 
         @delete-exercise="onDeleteExercise"
