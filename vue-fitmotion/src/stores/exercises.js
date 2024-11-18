@@ -53,6 +53,15 @@ export const useExercisesStore = defineStore('exercises', {
             )
             .then(res => res.json())
             .then(res => console.log('Respuesta API en Edit ', res))    
-        }
+        },
+        deleteExercise(exerciseId) {
+            fetch(this.url + this.usr + `/${this.firebaseId[exerciseId]}.json`,
+                  {
+                      method: 'DELETE'
+                  }
+              )
+              .then(res => res.json())
+              .then(res => console.log(res))  
+          }
     }
 })

@@ -94,15 +94,15 @@ function openEditModal(exercise) {
 //     .then(res => console.log('Respuesta API',res))    
 // }
 
-function apiDelete(cardId) {
-  fetch(apiUrl + `/${jsonId[cardId]}.json`,
-        {
-            method: 'DELETE'
-        }
-    )
-    .then(res => res.json())
-    .then(res => console.log(res))  
-}
+// function apiDelete(cardId) {
+//   fetch(apiUrl + `/${jsonId[cardId]}.json`,
+//         {
+//             method: 'DELETE'
+//         }
+//     )
+//     .then(res => res.json())
+//     .then(res => console.log(res))  
+// }
 // ******* Funciones API: Fin *******
 
 
@@ -177,7 +177,7 @@ function onEditExercise(updateExercise) {
 function onDeleteExercise(exerciseId) {
   console.log('Delete exercise', exerciseId);
   exercises.value = exercises.value.filter(exercise => exercise.id !== exerciseId); 
-  // apiDelete(exerciseId)
+  exercisesStore.deleteExercise(exerciseId)
 }
 
 function onToggleStatus(exercise) {
