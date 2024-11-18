@@ -5,6 +5,7 @@ export const useExercisesStore = defineStore('exercises', {
         exercises: [],
         loading: false,
         error: null,
+        firebaseId: {},
         url: 'https://json-app-1d643-default-rtdb.europe-west1.firebasedatabase.app/gym-app/',
         usr: 'juan'
     }),
@@ -13,13 +14,17 @@ export const useExercisesStore = defineStore('exercises', {
             this.loading = true
             this.error = null
             try {
-                const response = await fetch( this.url + this.usr + '.json')
+                const response = await fetch(this.url + this.usr + '.json')
                 if (!response.ok) {
                     throw new Error(`Error status: ${response.status}`)
                 }
                 const data = await response.json()
                 console.log('Data pura: ', data);
+
                 if (data != null) {
+                    for (let obj in data) {
+                        this.firebaseId[data[obj].id] = obj
+                    }
                     this.exercises = Object.values(data)
                 }
                 console.log('Ejercicios fetched: ', this.exercises);
@@ -28,6 +33,16 @@ export const useExercisesStore = defineStore('exercises', {
             } finally {
                 this.loading = false;
             }
+        },
+        postExercise(newExercise) {
+            fetch(this.url + this.usr + '.json', {
+                method: 'POST',
+                body: JSON.stringify(newExercise)
+            })
+            .then((response) => response.json())
+            .then((data) => {
+                this.firebaseId[newExercise.id] = data.name
+            });
         }
     }
 })

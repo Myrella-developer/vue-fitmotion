@@ -5,6 +5,7 @@ import ExerciseCard from './ExerciseCard.vue';
 import Modal from './Modal.vue';
 import ExerciseForm from './ExerciseForm.vue';
 import { useExercisesStore } from '../stores/exercises'
+import { v4 as uuidv4 } from 'uuid';
 
 
 const exercisesStore = useExercisesStore()   
@@ -49,38 +50,38 @@ function openEditModal(exercise) {
 }
 // ******* Funciones API: Inicio *******
 //Se obtiene actividades desde FireBase y se inicia jsonId
-function apiGet() {
-      isLoading.value = true
-      try {
-        fetch(apiUrl+'.json')
-          .then((response) => response.json())
-          .then((data) => {
-            for(let obj in data) {
-              //Inicializar jsonId
-              jsonId[data[obj].id] = obj
-              exercises.value.push(data[obj])
-              }
-            isLoading.value = false;                          
-            console.log('Ejs del API: ', exercises.value);            
-            console.log('IdAPI-IdLocal', jsonId);            
-          });
-      } catch (error) {
-        console.log(error);
-      }      
-}
+// function apiGet() {
+//       isLoading.value = true
+//       try {
+//         fetch(apiUrl+'.json')
+//           .then((response) => response.json())
+//           .then((data) => {
+//             for(let obj in data) {
+//               //Inicializar jsonId
+//               jsonId[data[obj].id] = obj
+//               exercises.value.push(data[obj])
+//               }
+//             isLoading.value = false;                          
+//             console.log('Ejs del API: ', exercises.value);            
+//             console.log('IdAPI-IdLocal', jsonId);            
+//           });
+//       } catch (error) {
+//         console.log(error);
+//       }      
+// }
 
 
 
-function apiPost(newCard) {
-  fetch(apiUrl + '.json', {
-    method: 'POST',
-    body: JSON.stringify(newCard)
-  })
-  .then((response) => response.json())
-          .then((data) => {
-          jsonId[newCard.id] = data.name
-  });
-}
+// function apiPost(newCard) {
+//   fetch(apiUrl + '.json', {
+//     method: 'POST',
+//     body: JSON.stringify(newCard)
+//   })
+//   .then((response) => response.json())
+//           .then((data) => {
+//           jsonId[newCard.id] = data.name
+//   });
+// }
 
 function apiEdit(card) {  
   fetch(apiUrl + `/${jsonId[card.id]}.json`,
@@ -107,8 +108,7 @@ function apiDelete(cardId) {
 
 function saveExercise(exerciseData) {
   if (isEditMode.value) {
-    onEditExercise(exerciseData);
-    
+    onEditExercise(exerciseData);    
   } else {
     onAddExercise(exerciseData);
   }
@@ -116,7 +116,7 @@ function saveExercise(exerciseData) {
 }
 
 onMounted(() => {
-  apiGet()
+  // apiGet()
   exercisesStore.fetchExercises()
   console.log('Luego de onMount: ', exercisesStore.exercises);
   
@@ -144,15 +144,15 @@ function onFilterChange(newFilter) {
 
 function onAddExercise(exerciseData) {
   console.log('Add exercise');
-  const newExercise ={
-    id: exercises.value.length + 1,
+  const newExercise = {
+    id: uuidv4(),
     completed: false,
     ...exerciseData
   };
   //Guarda en Variable local
   exercises.value.push(newExercise);  
   //Guarda en FireBase
-  apiPost(newExercise)  
+  exercisesStore.postExercise(newExercise)  
 
   title.value = '';
   description.value = '';
@@ -177,7 +177,7 @@ function onEditExercise(updateExercise) {
 function onDeleteExercise(exerciseId) {
   console.log('Delete exercise', exerciseId);
   exercises.value = exercises.value.filter(exercise => exercise.id !== exerciseId); 
-  apiDelete(exerciseId)
+  // apiDelete(exerciseId)
 }
 
 function onToggleStatus(exercise) {
