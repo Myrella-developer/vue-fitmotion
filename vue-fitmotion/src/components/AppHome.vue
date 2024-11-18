@@ -83,16 +83,16 @@ function openEditModal(exercise) {
 //   });
 // }
 
-function apiEdit(card) {  
-  fetch(apiUrl + `/${jsonId[card.id]}.json`,
-        {
-            method: 'PATCH',
-            body: JSON.stringify(card)
-        }
-    )
-    .then(res => res.json())
-    .then(res => console.log('Respuesta API',res))    
-}
+// function apiEdit(card) {  
+//   fetch(apiUrl + `/${jsonId[card.id]}.json`,
+//         {
+//             method: 'PATCH',
+//             body: JSON.stringify(card)
+//         }
+//     )
+//     .then(res => res.json())
+//     .then(res => console.log('Respuesta API',res))    
+// }
 
 function apiDelete(cardId) {
   fetch(apiUrl + `/${jsonId[cardId]}.json`,
@@ -165,7 +165,7 @@ function onAddExercise(exerciseData) {
 function onEditExercise(updateExercise) {
   
   console.log('Edit exercise');
-  apiEdit(updateExercise)
+  exercisesStore.editExercise(updateExercise)
   exercises.value = exercises.value.map(exercise => {
     if (exercise.id === updateExercise.id) {
       return {...exercise, ...updateExercise};

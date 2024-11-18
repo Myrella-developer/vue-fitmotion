@@ -43,6 +43,16 @@ export const useExercisesStore = defineStore('exercises', {
             .then((data) => {
                 this.firebaseId[newExercise.id] = data.name
             });
+        },
+        editExercise(editedExercise) {  
+            fetch(this.url + this.usr + `/${this.firebaseId[editedExercise.id]}.json`,
+                {
+                    method: 'PATCH',
+                    body: JSON.stringify(editedExercise)
+                }
+            )
+            .then(res => res.json())
+            .then(res => console.log('Respuesta API en Edit ', res))    
         }
     }
 })
