@@ -41,7 +41,8 @@ export const useExercisesStore = defineStore('exercises', {
             })
             .then((response) => response.json())
             .then((data) => {
-                this.firebaseId[newExercise.id] = data.name
+                this.fetchExercises()
+                // this.firebaseId[newExercise.id] = data.name
             });
         },
         editExercise(editedExercise) {  
@@ -52,7 +53,9 @@ export const useExercisesStore = defineStore('exercises', {
                 }
             )
             .then(res => res.json())
-            .then(res => console.log('Respuesta API en Edit ', res))    
+            .then(res => {
+                this.fetchExercises()
+                console.log('Respuesta API en Edit ', res)})    
         },
         deleteExercise(exerciseId) {
             fetch(this.url + this.usr + `/${this.firebaseId[exerciseId]}.json`,
@@ -61,7 +64,10 @@ export const useExercisesStore = defineStore('exercises', {
                   }
               )
               .then(res => res.json())
-              .then(res => console.log(res))  
+              .then(res => {
+                this.fetchExercises()
+                console.log(res)
+            })  
           }
     }
 })
