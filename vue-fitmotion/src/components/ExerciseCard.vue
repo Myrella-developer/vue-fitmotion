@@ -26,6 +26,7 @@ function toggleStatus(e) {
         <img :src="exercise.image" alt="Exercise image">
         <p class="exercise-title">{{ exercise.title }}</p>
         <p class="exercise-description">{{ exercise.description }}</p>
+        <RouterLink :to="'exercise/' + exercise.id">Más...</RouterLink>
         <p class="exercise-duration">Time: {{ exercise.duration }} minutes</p>
         <p class="exercise-duration">Intensity: {{ exercise.intensity }}</p>
         <p class="exercise-category">Category: {{ exercise.category }}</p>
@@ -33,7 +34,8 @@ function toggleStatus(e) {
         <button @click.stop="deleteExercise" class="button-delete">Delete</button>
     </div>
 </template>
-<style>
+
+<style scoped>
 
 .exercise-card {
   box-sizing: border-box;
