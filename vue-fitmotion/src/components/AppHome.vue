@@ -6,7 +6,6 @@ import Modal from './Modal.vue';
 import ExerciseForm from './ExerciseForm.vue';
 import { useExercisesStore } from '../stores/exercises'
 import { v4 as uuidv4 } from 'uuid';
-import { } from '../views/ExerciseView.vue'
 
 
 const exercisesStore = useExercisesStore()
