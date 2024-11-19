@@ -12,7 +12,7 @@
   </header>
 
   <RouterView />
-  
+
 </template>
 
 <style>
