@@ -4,6 +4,5 @@
 
 
 <script setup>
-// import { RouterLink, RouterView } from 'vue-router'
-import ExtendedCard  from '../components/ExtendedCard.vue'
+    import ExtendedCard  from '../components/ExtendedCard.vue'
 </script>

@@ -7,7 +7,6 @@ const exercisesStore = useExercisesStore()
 const props = defineProps({
     exerciseId: String,
 });
-// const emit = defineEmits(['edit-exercise', 'delete-exercise', 'toggle-status']);
 
 const exercise = computed(() => {
   console.log('Llega id a componente', props.exerciseId);
@@ -29,6 +28,7 @@ const exercise = computed(() => {
 <style scoped>
 img {
   width: 200px;
+  border-radius: 5px;
 }
 .exercise-card {
   background-color: #fff;

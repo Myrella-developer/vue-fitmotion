@@ -93,8 +93,6 @@ function onToggleStatus(exercise) {
   onEditExercise({ ...exercise, completed: !exercise.completed })
 }
 
-// watch(exercisesStore.exercises, () => {
-// }, {deep: true})
 
 const filteredExercises = computed(() => {
   if (filter.value === 'all') {
@@ -116,22 +114,8 @@ const filteredExercises = computed(() => {
         <p v-else-if="exercisesStore.exercises.length === 0">No hay Ejercicios en BBDD</p>
         <p v-else-if="filteredExercises.length === 0">No hay ejercicios con este filtro</p>
 
-        <ExerciseCard 
-        v-else
-        v-for="exercise in filteredExercises" 
-        :key="exercise.id" :exercise="exercise" 
-        @edit-exercise="openEditModal" 
-        @delete-exercise="onDeleteExercise"
-        @toggle-status="onToggleStatus"
-          />
-        <!-- <RouterLink v-for="exercise in filteredExercises" :to="'exercise/' + exercise.id">
-          <ExerciseCard 
-          :key="exercise.id" 
-          :exercise="exercise" 
-          @edit-exercise="openEditModal"
-          @delete-exercise="onDeleteExercise" @toggle-status="onToggleStatus" />
-        </RouterLink> -->
-
+        <ExerciseCard v-else v-for="exercise in filteredExercises" :key="exercise.id" :exercise="exercise"
+          @edit-exercise="openEditModal" @delete-exercise="onDeleteExercise" @toggle-status="onToggleStatus" />
       </div>
 
       <Modal v-if="showModal" @close="showModal = false">
