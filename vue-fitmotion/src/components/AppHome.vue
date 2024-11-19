@@ -22,6 +22,10 @@ const selectedExercise = ref(null);
 const isEditMode = ref(false);
 
 
+onMounted(() => {
+  exercisesStore.fetchExercises()
+  console.log('Luego de onMount: ', exercisesStore.exercises);  
+});
 
 function openAddModal() {
   selectedExercise.value = {
@@ -50,11 +54,6 @@ function saveExercise(exerciseData) {
   }
   showModal.value = false;
 }
-
-onMounted(() => {
-  exercisesStore.fetchExercises()
-  console.log('Luego de onMount: ', exercisesStore.exercises);  
-});
 
 
 function onFilterChange(newFilter) {
@@ -93,6 +92,9 @@ function onToggleStatus(exercise) {
   onEditExercise({...exercise, completed: !exercise.completed})
 }
 
+// watch(exercisesStore.exercises, () => {
+// }, {deep: true})
+
 const filteredExercises = computed(() => {
   if(filter.value === 'all') {
     return exercisesStore.exercises;
@@ -112,6 +114,7 @@ const filteredExercises = computed(() => {
         <p v-if="exercisesStore.loading">Cargando Ejercicios...</p>
         <p v-else-if="exercisesStore.exercises.length === 0">No hay Ejercicios en BBDD</p>
         <p v-else-if="filteredExercises.length === 0">No hay ejercicios con este filtro</p>
+
         <ExerciseCard 
         v-else
         v-for="exercise in filteredExercises" 
@@ -120,6 +123,7 @@ const filteredExercises = computed(() => {
         @delete-exercise="onDeleteExercise"
         @toggle-status="onToggleStatus"
           />
+
       </div>
 
       <Modal v-if="showModal" @close="showModal = false">

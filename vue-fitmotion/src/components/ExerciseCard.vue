@@ -37,6 +37,7 @@ function toggleStatus(e) {
 
 .exercise-card {
   box-sizing: border-box;
+  border: 1px solid #ccc;
   border-radius: 8px;
   padding: 10px;
   width: 200px;
