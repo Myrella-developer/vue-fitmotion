@@ -89,9 +89,8 @@
 <script>
 
 </script>
-<style scoped>
-/* Estilos para el componente About.vue */
 
+<style scoped>
 /* Reset básico */
 * {
   margin: 0;
@@ -108,19 +107,29 @@ body {
   padding: 20px;
 }
 
+/* Sección principal */
+div {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
 /* Títulos principales */
 h2 {
   color: #2c3e50;
   margin-bottom: 15px;
   font-weight: bold;
   text-transform: uppercase;
-  font-size: 1.2rem; 
+  font-size: 1.2rem;
 }
 
 h3 {
   color: #e67e22;
   margin-top: 30px;
-  font-size: 1.1rem; 
+  font-size: 1.1rem;
   font-weight: bold;
   text-transform: uppercase;
 }
@@ -151,16 +160,6 @@ img {
   height: auto;
   border-radius: 5px;
   margin-top: 15px;
-}
-
-/* Sección principal */
-div {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* Estilos para los elementos de la lista */

@@ -135,9 +135,8 @@ const filteredExercises = computed(() => {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color: #f0f4f8;
-  /* Fondo de la página */
-  color: #333;
+  background: linear-gradient(145deg, #4c51a5, #6e7dff); /* Gradiente de fondo futurista */
+  color: #e1e1e1; /* Color claro para el texto */
   overflow: hidden;
 }
 
@@ -148,13 +147,17 @@ const filteredExercises = computed(() => {
   max-width: 1200px;
   margin: 0 auto;
   overflow-y: auto;
+  background: rgba(255, 255, 255, 0.1); /* Fondo semitransparente para el contenido */
+  border-radius: 15px;
+  backdrop-filter: blur(10px); /* Efecto de difuminado para un estilo moderno */
 }
 
+/* Lista de ejercicios */
 .exercise-list {
   margin: 20px;
   border: 1px solid #838181;
-  border-radius: 8px;
-  padding: 10px;
+  border-radius: 12px;
+  padding: 20px;
   display: flex;
   gap: 20px;
   flex-wrap: wrap;

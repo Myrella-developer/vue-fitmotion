@@ -27,29 +27,49 @@ const exercise = computed(() => {
 
 <style scoped>
 img {
-  width: 200px;
-  border-radius: 5px;
+  width: 100%;
+  max-width: 200px;
+  height: auto;
+  border-radius: 8px;
+  object-fit: cover;
 }
+
 .exercise-card {
-  background-color: #fff;
-  border-radius: 5px;
-  background-color: rgb(161, 151, 139);
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  margin: 10px auto; 
-  max-width: 500px; 
-  text-align: center; 
+  background-color: #e0e0e0; /* Platinum-like color */
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  padding: 25px;
+  margin: 15px auto;
+  max-width: 500px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.exercise-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
 }
 
 .exercise-title {
-  font-size: 1.2em;
-  margin-bottom: 10px;
+  font-size: 1.4em;
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: #333;
 }
 
 .exercise-description {
-  font-size: 0.9em;
-  line-height: 1.5;
+  font-size: 1em;
+  line-height: 1.6;
   margin-top: 15px;
+  color: #555;
 }
 
+.exercise-duration,
+.exercise-intensity,
+.exercise-category {
+  font-size: 0.95em;
+  color: #777;
+  margin: 5px 0;
+}
 </style>
