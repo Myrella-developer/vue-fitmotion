@@ -18,6 +18,31 @@
         lo que permite enfocarse en objetivos específicos.</li>
       <li><strong>Integración con Firebase:</strong> La aplicación se conecta a una base de datos de Firebase para
         almacenar y recuperar de forma segura toda la información relacionada con los ejercicios.</li>
+      <li><strong>Pinia:</strong>
+        <ul>
+          <li>Gestión de ejercicios:
+            <ul>
+              <li>Almacena una lista de ejercicios.</li>
+              <li>Permite agregar nuevos ejercicios.</li>
+              <li>Facilita la edición de ejercicios existentes.</li>
+              <li>Permite eliminar ejercicios.</li>
+            </ul>
+          </li>
+          <li>Interacción con Firebase:
+            <ul>
+              <li>Obtiene los ejercicios de una base de datos Firebase.</li>
+              <li>Guarda los cambios en los ejercicios en Firebase.</li>
+              <li>Elimina ejercicios de Firebase.</li>
+            </ul>
+          </li>
+          <li>Estado reactivo:
+            <ul>
+              <li>Mantiene un estado actualizado de los ejercicios, la carga y los errores.</li>
+              <li>Los cambios en el estado se reflejan automáticamente en la interfaz de usuario.</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
     </ul>
   </div>
 </template>
