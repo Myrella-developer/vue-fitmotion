@@ -48,12 +48,39 @@
       <li> 
         <strong>Routing:</strong>
         <ul>
-          <li>Routing para Home y about</li>
-          <li>Dynamic Routing para ampliar informacion de ejercicios</li>
+          <li>Routing para Home y About.</li>
+          <li>Dynamic Routing para ampliar información de ejercicios.</li>
         </ul>
-      
       </li>
     </ul>
+
+    <!-- NUEVA SECCIÓN -->
+    <h3>Arquitectura basada en componentes: Ventajas y motivos</h3>
+    <p>
+      La aplicación está diseñada en componentes para garantizar un <strong>código modular, reutilizable y mantenible</strong>.
+      Esta estructura permite dividir la funcionalidad de la aplicación en piezas pequeñas, independientes y específicas,
+      lo que facilita el desarrollo y la colaboración en equipo.
+    </p>
+    <p>
+      <strong>Ventajas clave:</strong>
+    </p>
+    <ul>
+      <li><strong>Reutilización:</strong> Los componentes como <code>ExerciseList</code>, <code>ExerciseForm</code> y 
+        <code>FilterDropdown</code> pueden ser utilizados en diferentes partes de la aplicación sin duplicar código.</li>
+      <li><strong>Escalabilidad:</strong> Al trabajar con componentes, es más sencillo agregar nuevas funcionalidades o modificar
+        las existentes sin afectar otras partes del sistema.</li>
+      <li><strong>Mantenibilidad:</strong> La separación lógica hace que el código sea más fácil de leer, depurar y actualizar,
+        especialmente en proyectos de mayor tamaño.</li>
+      <li><strong>Reactividad:</strong> Cada componente puede manejar su propio estado y reaccionar a los cambios de forma eficiente,
+        lo que mejora la experiencia del usuario y el rendimiento de la aplicación.</li>
+      <li><strong>Colaboración:</strong> Los desarrolladores pueden trabajar en diferentes componentes al mismo tiempo, reduciendo
+        conflictos y acelerando el desarrollo.</li>
+    </ul>
+    <p>
+      Por estas razones, el enfoque basado en componentes es una práctica recomendada en frameworks como Vue.js, Angular o React, 
+      y es ideal para construir aplicaciones dinámicas como esta.
+    </p>
+    
     <h3>Estructura de carpetas</h3>
     <img src="../assets/carpetas.jpg" alt="estructura carpetas">
   </div>
