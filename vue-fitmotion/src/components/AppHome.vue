@@ -8,7 +8,7 @@ import { useExercisesStore } from '../stores/exercises'
 import { v4 as uuidv4 } from 'uuid';
 
 
-const exercisesStore = useExercisesStore()   
+const exercisesStore = useExercisesStore()
 
 const filter = ref('');
 const title = ref('');
@@ -22,6 +22,10 @@ const selectedExercise = ref(null);
 const isEditMode = ref(false);
 
 
+onMounted(() => {
+  exercisesStore.fetchExercises()
+  console.log('Luego de onMount: ', exercisesStore.exercises);
+});
 
 function openAddModal() {
   selectedExercise.value = {
@@ -36,7 +40,7 @@ function openAddModal() {
   showModal.value = true;
 }
 
-function openEditModal(exercise) {  
+function openEditModal(exercise) {
   selectedExercise.value = { ...exercise };
   isEditMode.value = true;
   showModal.value = true;
@@ -44,17 +48,12 @@ function openEditModal(exercise) {
 
 function saveExercise(exerciseData) {
   if (isEditMode.value) {
-    onEditExercise(exerciseData);    
+    onEditExercise(exerciseData);
   } else {
     onAddExercise(exerciseData);
   }
   showModal.value = false;
 }
-
-onMounted(() => {
-  exercisesStore.fetchExercises()
-  console.log('Luego de onMount: ', exercisesStore.exercises);  
-});
 
 
 function onFilterChange(newFilter) {
@@ -62,15 +61,15 @@ function onFilterChange(newFilter) {
 }
 
 function onAddExercise(exerciseData) {
- 
+
   const newExercise = {
     id: uuidv4(),
     completed: false,
     ...exerciseData
   };
-    
+
   //Guarda en FireBase
-  exercisesStore.postExercise(newExercise)  
+  exercisesStore.postExercise(newExercise)
 
   title.value = '';
   description.value = '';
@@ -81,7 +80,7 @@ function onAddExercise(exerciseData) {
 }
 
 function onEditExercise(updateExercise) {
-    exercisesStore.editExercise(updateExercise)
+  exercisesStore.editExercise(updateExercise)
 }
 
 function onDeleteExercise(exerciseId) {
@@ -90,62 +89,54 @@ function onDeleteExercise(exerciseId) {
 }
 
 function onToggleStatus(exercise) {
-  onEditExercise({...exercise, completed: !exercise.completed})
+  onEditExercise({ ...exercise, completed: !exercise.completed })
 }
 
+
 const filteredExercises = computed(() => {
-  if(filter.value === 'all') {
+  if (filter.value === 'all') {
     return exercisesStore.exercises;
-  } 
+  }
   return exercisesStore.exercises.filter(exercise => exercise.intensity === filter.value);
 });
 </script>
 
 <template>
   <div class="app-container">
-    
+
     <main class="main-content">
 
-      <Filter @filter-changed="onFilterChange" @add-exercise="openAddModal"/>
+      <Filter @filter-changed="onFilterChange" @add-exercise="openAddModal" />
 
       <div class="exercise-list">
         <p v-if="exercisesStore.loading">Cargando Ejercicios...</p>
         <p v-else-if="exercisesStore.exercises.length === 0">No hay Ejercicios en BBDD</p>
         <p v-else-if="filteredExercises.length === 0">No hay ejercicios con este filtro</p>
-        <ExerciseCard 
-        v-else
-        v-for="exercise in filteredExercises" 
-        :key="exercise.id" :exercise="exercise" 
-        @edit-exercise="openEditModal" 
-        @delete-exercise="onDeleteExercise"
-        @toggle-status="onToggleStatus"
-          />
+
+        <ExerciseCard v-else v-for="exercise in filteredExercises" :key="exercise.id" :exercise="exercise"
+          @edit-exercise="openEditModal" @delete-exercise="onDeleteExercise" @toggle-status="onToggleStatus" />
       </div>
 
       <Modal v-if="showModal" @close="showModal = false">
-        <ExerciseForm 
-          :exercise="selectedExercise" 
-          :isEdit="isEditMode" 
-          @save="saveExercise" 
-          @cancel="showModal = false" 
-        />
+        <ExerciseForm :exercise="selectedExercise" :isEdit="isEditMode" @save="saveExercise"
+          @cancel="showModal = false" />
       </Modal>
 
-  </main>
-  <footer class="footer">
-    <p>&copy; 2024. All rights reserved.</p>
-  </footer>
+    </main>
+    <footer class="footer">
+      <p>&copy; 2024. All rights reserved.</p>
+    </footer>
   </div>
 </template>
 
 
 <style scoped>
-
 .app-container {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color: #f0f4f8; /* Fondo de la página */
+  background-color: #f0f4f8;
+  /* Fondo de la página */
   color: #333;
   overflow: hidden;
 }
@@ -160,16 +151,17 @@ const filteredExercises = computed(() => {
 }
 
 .exercise-list {
-    margin: 20px;
-    border: 1px solid #838181;
-    border-radius: 8px;
-    padding: 10px;
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
-    justify-content: center;
+  margin: 20px;
+  border: 1px solid #838181;
+  border-radius: 8px;
+  padding: 10px;
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
 }
-  /* Footer */
+
+/* Footer */
 .footer {
   background-color: #333;
   color: white;
