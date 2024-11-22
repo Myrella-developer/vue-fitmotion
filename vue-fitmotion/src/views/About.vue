@@ -16,7 +16,9 @@
         registro del entrenamiento.</li>
       <li><strong>Filtrado personalizado:</strong> La lista de ejercicios se puede filtrar según el nivel de intensidad,
         lo que permite enfocarse en objetivos específicos.</li>
-      <li><strong>Integración con Firebase:</strong> La aplicación se conecta a una base de datos de Firebase para
+      <hr>
+
+      <li><strong>API - Firebase:</strong> La aplicación se conecta a una base de datos de Firebase para
         almacenar y recuperar de forma segura toda la información relacionada con los ejercicios.</li>
       <li><strong>Pinia:</strong>
         <ul>
@@ -43,7 +45,17 @@
           </li>
         </ul>
       </li>
+      <li> 
+        <strong>Routing:</strong>
+        <ul>
+          <li>Routing para Home y about</li>
+          <li>Dynamic Routing para ampliar informacion de ejercicios</li>
+        </ul>
+      
+      </li>
     </ul>
+    <h3>Estructura de carpetas</h3>
+    <img src="../assets/carpetas.jpg" alt="estructura carpetas">
   </div>
 </template>
 
