@@ -89,3 +89,102 @@
 <script>
 
 </script>
+<style scoped>
+/* Estilos para el componente About.vue */
+
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Estilos globales */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
+  line-height: 1.6;
+  padding: 20px;
+}
+
+/* Títulos principales */
+h2 {
+  color: #2c3e50;
+  margin-bottom: 15px;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 1.2rem; 
+}
+
+h3 {
+  color: #e67e22;
+  margin-top: 30px;
+  font-size: 1.1rem; 
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+/* Párrafos */
+p {
+  margin-bottom: 20px;
+  font-size: 1rem;
+}
+
+/* Listas */
+ul {
+  list-style-type: disc;
+  padding-left: 20px;
+}
+
+li {
+  margin-bottom: 10px;
+}
+
+strong {
+  color: #3498db;
+}
+
+/* Estilo para las imágenes */
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 5px;
+  margin-top: 15px;
+}
+
+/* Sección principal */
+div {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos para los elementos de la lista */
+li > ul {
+  margin-top: 10px;
+  margin-left: 20px;
+}
+
+/* Espaciado entre secciones */
+hr {
+  border: 1px solid #ecf0f1;
+  margin: 20px 0;
+}
+
+/* Estilos para las listas de ventajas */
+ul li {
+  margin-bottom: 12px;
+}
+
+/* Estilo de los códigos */
+code {
+  background-color: #f0f0f0;
+  padding: 3px 5px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+</style>
