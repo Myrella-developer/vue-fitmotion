@@ -2,6 +2,11 @@
 
 Esta es una aplicación de fitness desarrollada con Vue, Vite, Pinia y Firebase. Permite gestionar ejercicios, realizar un seguimiento del progreso y personalizar la experiencia según las necesidades del usuario.
 
+
+<img width="1200" alt="Captura de pantalla 2024-11-23 a las 10 24 50" src="https://github.com/user-attachments/assets/f6bd68c1-19d2-4b97-a244-c81da09d7fae">
+
+
+
 ## Características principales
 
 ### Visualización de ejercicios
