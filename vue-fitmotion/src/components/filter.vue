@@ -33,55 +33,65 @@
 .filter {
     display: flex;
     justify-content: center;
-    gap: 15px;
+    align-items: center;
+    gap: 20px;
     margin: 20px 0;
-    padding: 10px;
-    border-radius: 8px;
-    color: #4a5568;
-    background-color: #ded7ed; /* Fondo más claro para darle frescura */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05); /* Sombra suave para destacar */
-    transition: box-shadow 0.3s ease;
+    padding: 12px 20px;
+    border-radius: 16px; /* Bordes más redondeados */
+    background: linear-gradient(145deg, #d5d7ff, #a3a8f3); /* Gradiente suave */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 .filter:hover {
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* Sombra más profunda al pasar el ratón */
+    transform: scale(1.02); /* Ligero aumento al pasar el ratón */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Sombra más profunda */
 }
 
 .filter select {
-    background-color: #fff;
-    border: 1px solid #cbd5e0; /* Borde suave */
-    border-radius: 8px;
-    padding: 8px 12px;
+    background: linear-gradient(145deg, #ffffff, #f2f2f2); /* Gradiente ligero */
+    border: 1px solid #cbd5e0; /* Borde sutil */
+    border-radius: 12px;
+    padding: 10px 14px;
     font-size: 1em;
-    color: #4a5568;
-    transition: border-color 0.3s ease, transform 0.3s ease;
+    font-weight: bold; /* Texto destacado */
+    color: #4a5568; /* Gris oscuro */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
     cursor: pointer;
 }
 
+.filter select:hover,
 .filter select:focus {
-    border-color: #3182ce; /* Borde azul al enfocarse */
+    border-color: #6e7dff; /* Azul acorde al diseño */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
     outline: none;
-    transform: scale(1.05); /* Pequeño efecto de escala para enfoque */
+    transform: scale(1.05); /* Efecto de enfoque */
 }
 
 .filter option {
     font-size: 1em;
+    font-weight: normal;
     padding: 8px;
 }
 
 .filter button {
-    background-color: #3182ce; /* Azul suave para el botón */
-    color: white;
+    background: linear-gradient(145deg, #6e7dff, #4c51a5); /* Gradiente azul futurista */
+    color: #fff; /* Texto blanco */
     border: none;
-    padding: 8px 16px;
-    border-radius: 8px;
-    cursor: pointer;
+    padding: 10px 18px;
+    border-radius: 12px;
     font-size: 1em;
-    transition: background-color 0.3s ease, transform 0.3s ease;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para profundidad */
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .filter button:hover {
-    background-color: #2b6cb0; /* Azul más oscuro al pasar el ratón */
-    transform: scale(1.05); /* Efecto de escala al pasar el ratón */
+    background: linear-gradient(145deg, #4c51a5, #6e7dff); /* Inversión del gradiente */
+    transform: scale(1.1); /* Efecto de aumento */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Sombra más intensa */
 }
+
 </style>

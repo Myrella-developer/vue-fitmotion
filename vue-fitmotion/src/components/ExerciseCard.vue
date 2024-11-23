@@ -88,47 +88,81 @@ function toggleStatus(e) {
   white-space: nowrap;
 }
 
-.button-container {
-  display: flex;
-  justify-content: center;
-  margin-top: 12px;
-}
-
 .button-edit,
 .button-delete {
   border: none;
-  border-radius: 8px;
-  padding: 8px 18px;
+  border-radius: 20px; /* Bordes completamente redondeados */
+  padding: 10px 20px;
   cursor: pointer;
   font-size: 14px;
-  transition: background-color 0.3s ease, transform 0.3s ease;
+  font-weight: bold;
+  color: #fff; /* Texto blanco para contraste */
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2); /* Sombra sutil */
+  transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2); /* Sombra para efecto de profundidad */
 }
 
 .button-edit {
-  margin: 0 5px;
-  background-color: #3182ce;
-  color: #fff;
+  background: linear-gradient(135deg, #4c51a5, #6e7dff); /* Gradiente moderno */
 }
 
 .button-edit:hover {
-  background-color: #2b6cb0;
-  transform: scale(1.05); /* Efecto de ampliación */
+  background: linear-gradient(135deg, #6e7dff, #4c51a5); /* Inversión del gradiente */
+  transform: scale(1.1); /* Efecto de ampliación */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Sombra más fuerte */
 }
 
 .button-delete {
-  margin: 0 5px;
-  background-color: #e53e3e;
-  color: #fff;
+  background: linear-gradient(135deg, #e53e3e, #fc8181); /* Gradiente rojo */
 }
 
 .button-delete:hover {
-  background-color: #c53030;
-  transform: scale(1.05); /* Efecto de ampliación */
+  background: linear-gradient(135deg, #fc8181, #e53e3e); /* Inversión del gradiente */
+  transform: scale(1.1); /* Efecto de ampliación */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Sombra más fuerte */
+}
+
+a.router-link {
+  display: inline-block;
+  margin-top: 10px;
+  color: #4c51a5; /* Azul brillante */
+  font-size: 14px;
+  font-weight: bold;
+  text-decoration: none; /* Quita el subrayado */
+  padding: 6px 12px;
+  border-radius: 20px;
+  background: linear-gradient(145deg, #d5d7ff, #a3a8f3); /* Gradiente suave */
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2); /* Sombra para efecto de profundidad */
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+a.router-link:hover {
+  background: linear-gradient(145deg, #a3a8f3, #d5d7ff); /* Inversión del gradiente */
+  transform: scale(1.1); /* Efecto de ampliación */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Sombra más fuerte */
 }
 
 .completed-exercise {
   background-color: #9ae3a2; /* Verde claro */
-  border: 1px solid #68d391; /* Borde verde para marcar como completado */
+  border: 2px solid #38a169; /* Borde verde oscuro */
+  opacity: 0.85; /* Un poco más translúcido */
+  position: relative; /* Necesario para el ícono */
+  box-shadow: 0 0 10px 2px #68d391; /* Efecto de brillo */
+  transform: scale(1.02); /* Leve ampliación */
+}
+
+.completed-exercise::after {
+  content: '✔'; /* Ícono de verificación */
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #38a169; /* Verde oscuro */
+  font-size: 18px;
+  font-weight: bold;
+  background-color: #f0fff4; /* Fondo claro */
+  border-radius: 50%;
+  padding: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Sombra para el ícono */
 }
 </style>
 
